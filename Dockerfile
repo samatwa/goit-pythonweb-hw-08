@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.13-slim-bookworm
 
 # Встановлення системних залежностей
 RUN apt-get update && apt-get install -y \
@@ -24,10 +24,6 @@ RUN poetry install --only=main && rm -rf $POETRY_CACHE_DIR
 
 # Копіювання коду застосунку
 COPY . .
-
-# Створення користувача для безпеки
-RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
-USER appuser
 
 # Відкриття порту
 EXPOSE 8000
